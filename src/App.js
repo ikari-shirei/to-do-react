@@ -40,29 +40,23 @@ function App() {
     },
   ])
 
-  const [selectedList, setSelectedList] = useState({
-    id: 2,
-    name: 'Second List',
-    todo: [
-      { id: 1, name: 'First todo' },
-      { id: 2, name: 'Second todo' },
-      { id: 3, name: 'Second todo' },
-      { id: 4, name: 'Second todo' },
-      { id: 5, name: 'Second todo' },
-    ],
-    doing: [
-      { id: 1, name: 'First doing' },
-      { id: 2, name: 'Second doing' },
-    ],
-    done: [
-      { id: 1, name: 'First done' },
-      { id: 2, name: 'Second done' },
-    ],
-  })
+  const [selectedList, setSelectedList] = useState(lists[0])
+
+  const handleIdToDo = (list) => {
+    console.log(list)
+    let targetToDo = list.todo
+    if (!targetToDo || targetToDo.length === 0) {
+      targetToDo = { id: 1 }
+    }
+    return targetToDo.length >= 1
+      ? targetToDo[targetToDo.length - 1].id + 1
+      : targetToDo.id + 1
+  }
 
   const addNewTask = (selected) => {
-    /*  if (selected) {
-      const newTask = { id: 11, name: 'TODO' }
+    if (selected) {
+      const newTask = { id: handleIdToDo(selected), name: 'TODO' }
+
       let targetList = lists.find((list) => {
         return list === selected
       })
@@ -74,20 +68,27 @@ function App() {
         const updatedLists = lists.map((list) => {
           return list === selected ? targetList : list
         })
-
-        setSelectedList(targetList)
         console.log(updatedLists)
+        setLists(updatedLists)
+
+        updateSelectedList(
+          updatedLists.find((list) => {
+            return list.id === selected.id
+          })
+        )
       } else {
         console.log('error')
       }
-    } */
+    }
   }
 
-  useEffect(addNewTask, [])
+  const handleIdList = (lists) => {
+    return lists[lists.length - 1].id + 1
+  }
 
   const addNewList = (name) => {
     const newList = {
-      id: 3,
+      id: handleIdList(lists),
       name: `${name}`,
       todo: [],
       doing: [],
@@ -105,8 +106,6 @@ function App() {
     if (targetList) {
       setSelectedList(targetList)
     }
-
-    console.log(selectedList)
   }
 
   useEffect(updateSelectedList, [])
