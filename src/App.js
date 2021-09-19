@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Header from './components/Header'
+import uniqid from 'uniqid'
 
 function App() {
   const [lists, setLists] = useState([
@@ -42,20 +43,9 @@ function App() {
 
   const [selectedList, setSelectedList] = useState(lists[0])
 
-  const handleIdToDo = (list) => {
-    console.log(list)
-    let targetToDo = list.todo
-    if (!targetToDo || targetToDo.length === 0) {
-      targetToDo = { id: 1 }
-    }
-    return targetToDo.length >= 1
-      ? targetToDo[targetToDo.length - 1].id + 1
-      : targetToDo.id + 1
-  }
-
   const addNewTask = (selected) => {
     if (selected) {
-      const newTask = { id: handleIdToDo(selected), name: 'TODO' }
+      const newTask = { id: uniqid(), name: 'TODO' }
 
       let targetList = lists.find((list) => {
         return list === selected
@@ -82,13 +72,9 @@ function App() {
     }
   }
 
-  const handleIdList = (lists) => {
-    return lists[lists.length - 1].id + 1
-  }
-
   const addNewList = (name) => {
     const newList = {
-      id: handleIdList(lists),
+      id: uniqid(),
       name: `${name}`,
       todo: [],
       doing: [],
