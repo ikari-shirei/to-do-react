@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Header from './components/Header'
 import uniqid from 'uniqid'
+import Main from './components/Main'
+import Lists from './components/Lists'
 
 function App() {
   const [lists, setLists] = useState([
@@ -102,48 +104,14 @@ function App() {
         <Header list={selectedList.name} />
       </div>
       <div className="main-content">
-        <div className="to-do-container container">
-          <div className="button-container">
-            <h1>To Do</h1>
-            <button onClick={() => addNewTask(selectedList)}>Add Task</button>
-          </div>
-          <div className="inside-container">
-            {selectedList.todo.map((todo) => {
-              return <p key={todo.id}>{todo.name}</p>
-            })}
-          </div>
-        </div>
-        <div className="doing-container container">
-          <h1>Doing</h1>
-          <div className="inside-container">
-            {selectedList.doing.map((doing) => {
-              return <p key={doing.id}>{doing.name}</p>
-            })}
-          </div>
-        </div>
-        <div className="done-container container">
-          <h1>Done</h1>
-          <div className="inside-container">
-            {selectedList.done.map((done) => {
-              return <p key={done.id}>{done.name}</p>
-            })}
-          </div>
-        </div>
+        <Main addNewTask={addNewTask} selectedList={selectedList} />
       </div>
       <div className="lists-container container">
-        <div className="button-container">
-          <h1>Lists</h1>
-          <button onClick={() => addNewList('Heyheyhey')}>Add List</button>
-        </div>
-        <div className="inside-container">
-          {lists.map((list) => {
-            return (
-              <button key={list.id} onClick={() => updateSelectedList(list.id)}>
-                {list.name}
-              </button>
-            )
-          })}
-        </div>
+        <Lists
+          updateSelectedList={updateSelectedList}
+          addNewList={addNewList}
+          lists={lists}
+        />
       </div>
     </div>
   )
