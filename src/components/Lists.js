@@ -1,13 +1,11 @@
 import '../styles/lists.scss'
 import Button from './Button'
+import uniqid from 'uniqid'
+import React, { useState } from 'react'
 
-function Lists({
-  updateSelectedList,
-  addNewList,
-  lists,
-  setLists,
-  setSelectedList,
-}) {
+function Lists({ updateSelectedList, lists, setLists, setSelectedList }) {
+  const [newListName, setNewListName] = useState('')
+
   const handleButton = (selectedList) => {
     const targetId = selectedList.target.id
     if (lists.length === 1) {
@@ -22,11 +20,29 @@ function Lists({
     }
   }
 
+  const handleInput = (text) => {
+    setNewListName(text.target.value)
+  }
+
+  const addNewList = () => {
+    const newList = {
+      id: uniqid(),
+      name: newListName,
+      todo: [],
+      doing: [],
+      done: [],
+    }
+
+    setLists([...lists, newList])
+    setNewListName('')
+  }
+
   return (
     <>
       <div className="button-container">
         <h1>Lists</h1>
-        <button onClick={() => addNewList('Heyheyhey')}>Add List</button>
+        <input onChange={handleInput} value={newListName}></input>
+        <button onClick={addNewList}>Add List</button>
       </div>
       <div className="lists-container">
         {lists.map((list) => {

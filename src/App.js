@@ -74,18 +74,6 @@ function App() {
     }
   }
 
-  const addNewList = (name) => {
-    const newList = {
-      id: uniqid(),
-      name: `${name}`,
-      todo: [],
-      doing: [],
-      done: [],
-    }
-
-    setLists([...lists, newList])
-  }
-
   const updateSelectedList = (listId) => {
     const targetList = lists.find((list) => {
       return list.id === listId
@@ -109,7 +97,6 @@ function App() {
       <div className="container">
         <Lists
           updateSelectedList={updateSelectedList}
-          addNewList={addNewList}
           lists={lists}
           setLists={setLists}
           setSelectedList={setSelectedList}
