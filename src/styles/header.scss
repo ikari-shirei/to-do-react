@@ -1,0 +1,14 @@
+@import './index.scss';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  background-color: $color1;
+  color: $color2;
+  h1 {
+    font-size: 18px;
+    margin: 16px;
+  }
+}
