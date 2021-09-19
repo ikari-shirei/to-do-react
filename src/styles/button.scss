@@ -1,0 +1,33 @@
+@import './index.scss';
+
+@mixin button {
+  button {
+    border: 2px solid $color1;
+    width: 50px;
+    margin: auto 16px;
+    cursor: pointer;
+  }
+}
+
+.list-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-button {
+  @include button();
+  button {
+    display: inline-block;
+    background-color: red;
+    color: $color2;
+  }
+}
+
+.add-button {
+  button {
+    display: inline-block;
+    background-color: blue;
+    color: $color3;
+  }
+}

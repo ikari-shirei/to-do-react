@@ -1,0 +1,19 @@
+.lists-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow-x: hidden;
+  margin: 16px;
+}
+
+.list-item {
+  margin: 8px 0;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: left;
+  width: 150px;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}

@@ -7,7 +7,7 @@ import Lists from './components/Lists'
 function App() {
   const [lists, setLists] = useState([
     {
-      id: 1,
+      id: uniqid(),
       name: 'First List',
       todo: [
         { id: 1, name: 'First todo' },
@@ -23,7 +23,7 @@ function App() {
       ],
     },
     {
-      id: 2,
+      id: uniqid(),
       name: 'Second List',
       todo: [
         { id: 1, name: 'First todo' },
@@ -106,11 +106,13 @@ function App() {
       <div className="main-content">
         <Main addNewTask={addNewTask} selectedList={selectedList} />
       </div>
-      <div className="lists-container container">
+      <div className="container">
         <Lists
           updateSelectedList={updateSelectedList}
           addNewList={addNewList}
           lists={lists}
+          setLists={setLists}
+          setSelectedList={setSelectedList}
         />
       </div>
     </div>
