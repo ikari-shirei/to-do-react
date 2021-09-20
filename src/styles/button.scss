@@ -9,25 +9,39 @@
   }
 }
 
-.list-button-container {
+.list-button-container,
+.todo-button-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  div {
+    display: flex;
+  }
 }
 
 .delete-button {
   @include button();
   button {
     display: inline-block;
-    background-color: red;
+    background-color: $color1;
     color: $color2;
   }
 }
 
-.add-button {
+.next-button {
+  @include button();
   button {
     display: inline-block;
-    background-color: blue;
-    color: $color3;
+    background-color: $color2;
+    color: $color1;
+  }
+}
+
+.back-button {
+  @include button();
+  button {
+    display: inline-block;
+    background-color: $color2;
+    color: $color1;
   }
 }

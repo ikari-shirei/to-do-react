@@ -10,35 +10,35 @@ function App() {
       id: uniqid(),
       name: 'First List',
       todo: [
-        { id: 1, name: 'First todo' },
-        { id: 2, name: 'First todo' },
+        { id: uniqid(), name: 'First todo' },
+        { id: uniqid(), name: 'First todo' },
       ],
       doing: [
-        { id: 1, name: 'First doing' },
-        { id: 2, name: 'Second doing' },
+        { id: uniqid(), name: 'First doing' },
+        { id: uniqid(), name: 'Second doing' },
       ],
       done: [
-        { id: 1, name: 'First done' },
-        { id: 2, name: 'Second done' },
+        { id: uniqid(), name: 'First done' },
+        { id: uniqid(), name: 'Second done' },
       ],
     },
     {
       id: uniqid(),
       name: 'Second List',
       todo: [
-        { id: 1, name: 'First todo' },
-        { id: 2, name: 'Second todo' },
-        { id: 3, name: 'Second todo' },
-        { id: 4, name: 'Second todo' },
-        { id: 5, name: 'Second todo' },
+        { id: uniqid(), name: 'First todo' },
+        { id: uniqid(), name: 'Second todo' },
+        { id: uniqid(), name: 'Second todo' },
+        { id: uniqid(), name: 'Second todo' },
+        { id: uniqid(), name: 'Second todo' },
       ],
       doing: [
-        { id: 1, name: 'First doing' },
-        { id: 2, name: 'Second doing' },
+        { id: uniqid(), name: 'First doing' },
+        { id: uniqid(), name: 'Second doing' },
       ],
       done: [
-        { id: 1, name: 'First done' },
-        { id: 2, name: 'Second done' },
+        { id: uniqid(), name: 'First done' },
+        { id: uniqid(), name: 'Second done' },
       ],
     },
   ])
@@ -86,13 +86,35 @@ function App() {
 
   useEffect(updateSelectedList, [])
 
+  const removeTask = (val) => {
+    const targetList = lists.find((list) => {
+      return selectedList.id === list.id
+    })
+    const targetDone = targetList.done.find((done) => {
+      return val.target.id === done.id
+    })
+    const newDone = targetList.done.filter((done) => {
+      return done !== targetDone
+    })
+    targetList.done = newDone
+    const newLists = lists.map((list) => {
+      return list.id === targetList.id ? targetList : list
+    })
+
+    setLists(newLists)
+  }
+
   return (
     <div className="app">
       <div>
         <Header list={selectedList.name} />
       </div>
       <div className="main-content">
-        <Main addNewTask={addNewTask} selectedList={selectedList} />
+        <Main
+          addNewTask={addNewTask}
+          selectedList={selectedList}
+          removeTask={removeTask}
+        />
       </div>
       <div className="container">
         <Lists

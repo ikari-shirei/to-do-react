@@ -24,24 +24,38 @@ function Lists({ updateSelectedList, lists, setLists, setSelectedList }) {
     setNewListName(text.target.value)
   }
 
-  const addNewList = () => {
-    const newList = {
-      id: uniqid(),
-      name: newListName,
-      todo: [],
-      doing: [],
-      done: [],
+  const handleInputKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      addNewList()
     }
+  }
 
-    setLists([...lists, newList])
-    setNewListName('')
+  const addNewList = () => {
+    if (newListName !== '') {
+      const newList = {
+        id: uniqid(),
+        name: newListName,
+        todo: [],
+        doing: [],
+        done: [],
+      }
+
+      setLists([...lists, newList])
+      setNewListName('')
+    } else {
+      alert('Enter a value')
+    }
   }
 
   return (
     <>
       <div className="button-container">
         <h1>Lists</h1>
-        <input onChange={handleInput} value={newListName}></input>
+        <input
+          onChange={handleInput}
+          onKeyPress={handleInputKeyPress}
+          value={newListName}
+        ></input>
         <button onClick={addNewList}>Add List</button>
       </div>
       <div className="lists-container">
