@@ -45,35 +45,6 @@ function App() {
 
   const [selectedList, setSelectedList] = useState(lists[0])
 
-  const addNewTask = (selected) => {
-    if (selected) {
-      const newTask = { id: uniqid(), name: 'TODO' }
-
-      let targetList = lists.find((list) => {
-        return list === selected
-      })
-
-      if (targetList) {
-        const newToDo = [...targetList.todo, newTask]
-        targetList.todo = newToDo
-
-        const updatedLists = lists.map((list) => {
-          return list === selected ? targetList : list
-        })
-        console.log(updatedLists)
-        setLists(updatedLists)
-
-        updateSelectedList(
-          updatedLists.find((list) => {
-            return list.id === selected.id
-          })
-        )
-      } else {
-        console.log('error')
-      }
-    }
-  }
-
   const updateSelectedList = (listId) => {
     const targetList = lists.find((list) => {
       return list.id === listId
@@ -183,7 +154,9 @@ function App() {
       </div>
       <div className="main-content">
         <Main
-          addNewTask={addNewTask}
+          lists={lists}
+          setLists={setLists}
+          updateSelectedList={updateSelectedList}
           selectedList={selectedList}
           removeTask={removeTask}
           toDoNext={toDoNext}

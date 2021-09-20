@@ -1,8 +1,12 @@
 import '../styles/main.scss'
 import Button from './Button'
+import React, { useState } from 'react'
+import uniqid from 'uniqid'
 
 function Main({
-  addNewTask,
+  lists,
+  setLists,
+  updateSelectedList,
   selectedList,
   removeTask,
   toDoNext,
@@ -10,12 +14,54 @@ function Main({
   doingBack,
   doneBack,
 }) {
+  const [newTaskName, setNewTaskName] = useState('')
+
+  const handleInput = (val) => {
+    setNewTaskName(val.target.value)
+  }
+
+  const addNewTask = () => {
+    const newTask = { id: uniqid(), name: newTaskName }
+
+    let targetList = lists.find((list) => {
+      return list === selectedList
+    })
+
+    const newToDo = [...targetList.todo, newTask]
+    targetList.todo = newToDo
+
+    const updatedLists = lists.map((list) => {
+      return list === selectedList ? targetList : list
+    })
+    console.log(updatedLists)
+    setLists(updatedLists)
+
+    updateSelectedList(
+      updatedLists.find((list) => {
+        return list.id === selectedList.id
+      })
+    )
+
+    setNewTaskName('')
+  }
+
+  const handleInputKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      addNewTask()
+    }
+  }
+
   return (
     <>
       <div className="to-do-container container">
         <div className="button-container">
           <h1>To Do</h1>
-          <button onClick={() => addNewTask(selectedList)}>Add Task</button>
+          <input
+            onKeyPress={handleInputKeyPress}
+            onChange={handleInput}
+            value={newTaskName}
+          />
+          <button onClick={addNewTask}>Add Task</button>
         </div>
         <div className="inside-container">
           {selectedList.todo.map((todo) => {
@@ -68,13 +114,13 @@ function Main({
                 <div>
                   <Button
                     id={done.id}
-                    type="delete-button"
-                    handleButton={removeTask}
+                    handleButton={doneBack}
+                    type="back-button"
                   />
                   <Button
                     id={done.id}
-                    handleButton={doneBack}
-                    type="back-button"
+                    type="delete-button"
+                    handleButton={removeTask}
                   />
                 </div>
               </div>
