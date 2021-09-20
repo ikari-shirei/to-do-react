@@ -11,7 +11,7 @@ function App() {
       name: 'First List',
       todo: [
         { id: uniqid(), name: 'First todo' },
-        { id: uniqid(), name: 'First todo' },
+        { id: uniqid(), name: 'Second todo' },
       ],
       doing: [
         { id: uniqid(), name: 'First doing' },
@@ -104,6 +104,78 @@ function App() {
     setLists(newLists)
   }
 
+  const toDoNext = (val) => {
+    const targetId = val.target.id
+    const targetList = lists.find((list) => {
+      return selectedList.id === list.id
+    })
+    const targetToDo = targetList.todo.find((todo) => {
+      return targetId === todo.id
+    })
+    const targetToDoIndex = targetList.todo.findIndex((i) => i.id === targetId)
+    targetList.doing.push(targetToDo)
+    targetList.todo.splice(targetToDoIndex, 1)
+    const newLists = lists.map((list) => {
+      return list.id === targetList.id ? targetList : list
+    })
+    setLists(newLists)
+  }
+
+  const doingNext = (val) => {
+    const targetId = val.target.id
+    const targetList = lists.find((list) => {
+      return selectedList.id === list.id
+    })
+    const targetDoing = targetList.doing.find((doing) => {
+      return targetId === doing.id
+    })
+    const targetDoingIndex = targetList.doing.findIndex(
+      (i) => i.id === targetId
+    )
+    targetList.done.push(targetDoing)
+    targetList.doing.splice(targetDoingIndex, 1)
+    const newLists = lists.map((list) => {
+      return list.id === targetList.id ? targetList : list
+    })
+    setLists(newLists)
+  }
+
+  const doingBack = (val) => {
+    const targetId = val.target.id
+    const targetList = lists.find((list) => {
+      return selectedList.id === list.id
+    })
+    const targetDoing = targetList.doing.find((doing) => {
+      return targetId === doing.id
+    })
+    const targetDoingIndex = targetList.doing.findIndex(
+      (i) => i.id === targetId
+    )
+    targetList.todo.push(targetDoing)
+    targetList.doing.splice(targetDoingIndex, 1)
+    const newLists = lists.map((list) => {
+      return list.id === targetList.id ? targetList : list
+    })
+    setLists(newLists)
+  }
+
+  const doneBack = (val) => {
+    const targetId = val.target.id
+    const targetList = lists.find((list) => {
+      return selectedList.id === list.id
+    })
+    const targetDone = targetList.done.find((done) => {
+      return targetId === done.id
+    })
+    const targetDoneIndex = targetList.done.findIndex((i) => i.id === targetId)
+    targetList.doing.push(targetDone)
+    targetList.done.splice(targetDoneIndex, 1)
+    const newLists = lists.map((list) => {
+      return list.id === targetList.id ? targetList : list
+    })
+    setLists(newLists)
+  }
+
   return (
     <div className="app">
       <div>
@@ -114,6 +186,10 @@ function App() {
           addNewTask={addNewTask}
           selectedList={selectedList}
           removeTask={removeTask}
+          toDoNext={toDoNext}
+          doingNext={doingNext}
+          doingBack={doingBack}
+          doneBack={doneBack}
         />
       </div>
       <div className="container">

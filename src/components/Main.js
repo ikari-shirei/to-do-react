@@ -1,7 +1,15 @@
 import '../styles/main.scss'
 import Button from './Button'
 
-function Main({ addNewTask, selectedList, removeTask }) {
+function Main({
+  addNewTask,
+  selectedList,
+  removeTask,
+  toDoNext,
+  doingNext,
+  doingBack,
+  doneBack,
+}) {
   return (
     <>
       <div className="to-do-container container">
@@ -15,7 +23,11 @@ function Main({ addNewTask, selectedList, removeTask }) {
               <div className="todo-button-container" key={todo.id}>
                 <p>{todo.name}</p>
                 <div>
-                  <Button type="next-button" />
+                  <Button
+                    id={todo.id}
+                    handleButton={toDoNext}
+                    type="next-button"
+                  />
                 </div>
               </div>
             )
@@ -30,8 +42,16 @@ function Main({ addNewTask, selectedList, removeTask }) {
               <div className="todo-button-container" key={doing.id}>
                 <p>{doing.name}</p>
                 <div>
-                  <Button type="back-button" />
-                  <Button type="next-button" />
+                  <Button
+                    id={doing.id}
+                    handleButton={doingBack}
+                    type="back-button"
+                  />
+                  <Button
+                    id={doing.id}
+                    handleButton={doingNext}
+                    type="next-button"
+                  />
                 </div>
               </div>
             )
@@ -51,7 +71,11 @@ function Main({ addNewTask, selectedList, removeTask }) {
                     type="delete-button"
                     handleButton={removeTask}
                   />
-                  <Button type="back-button" />
+                  <Button
+                    id={done.id}
+                    handleButton={doneBack}
+                    type="back-button"
+                  />
                 </div>
               </div>
             )
