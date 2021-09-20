@@ -6,11 +6,11 @@ import React, { useState } from 'react'
 function Lists({ updateSelectedList, lists, setLists, setSelectedList }) {
   const [newListName, setNewListName] = useState('')
 
-  const handleButton = (selectedList) => {
+  const removeList = (selectedList) => {
     const targetId = selectedList.target.id
     if (lists.length === 1) {
       alert("You can't delete your last list.")
-    } else {
+    } else if (window.confirm('Are you sure?')) {
       const updatedList = lists.filter((list) => {
         return list.id !== targetId
       })
@@ -71,7 +71,7 @@ function Lists({ updateSelectedList, lists, setLists, setSelectedList }) {
               <Button
                 type="delete-button"
                 id={list.id}
-                handleButton={handleButton}
+                handleButton={removeList}
               />
             </div>
           )

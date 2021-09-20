@@ -21,28 +21,32 @@ function Main({
   }
 
   const addNewTask = () => {
-    const newTask = { id: uniqid(), name: newTaskName }
+    if (newTaskName !== '') {
+      const newTask = { id: uniqid(), name: newTaskName }
 
-    let targetList = lists.find((list) => {
-      return list === selectedList
-    })
-
-    const newToDo = [...targetList.todo, newTask]
-    targetList.todo = newToDo
-
-    const updatedLists = lists.map((list) => {
-      return list === selectedList ? targetList : list
-    })
-    console.log(updatedLists)
-    setLists(updatedLists)
-
-    updateSelectedList(
-      updatedLists.find((list) => {
-        return list.id === selectedList.id
+      let targetList = lists.find((list) => {
+        return list === selectedList
       })
-    )
 
-    setNewTaskName('')
+      const newToDo = [...targetList.todo, newTask]
+      targetList.todo = newToDo
+
+      const updatedLists = lists.map((list) => {
+        return list === selectedList ? targetList : list
+      })
+      console.log(updatedLists)
+      setLists(updatedLists)
+
+      updateSelectedList(
+        updatedLists.find((list) => {
+          return list.id === selectedList.id
+        })
+      )
+
+      setNewTaskName('')
+    } else {
+      alert('Enter a value')
+    }
   }
 
   const handleInputKeyPress = (event) => {

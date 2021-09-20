@@ -22,7 +22,7 @@ function App() {
         { id: uniqid(), name: 'Second done' },
       ],
     },
-    {
+    /*  {
       id: uniqid(),
       name: 'Second List',
       todo: [
@@ -40,7 +40,7 @@ function App() {
         { id: uniqid(), name: 'First done' },
         { id: uniqid(), name: 'Second done' },
       ],
-    },
+    }, */
   ])
 
   const [selectedList, setSelectedList] = useState(lists[0])
@@ -58,21 +58,23 @@ function App() {
   useEffect(updateSelectedList, [])
 
   const removeTask = (val) => {
-    const targetList = lists.find((list) => {
-      return selectedList.id === list.id
-    })
-    const targetDone = targetList.done.find((done) => {
-      return val.target.id === done.id
-    })
-    const newDone = targetList.done.filter((done) => {
-      return done !== targetDone
-    })
-    targetList.done = newDone
-    const newLists = lists.map((list) => {
-      return list.id === targetList.id ? targetList : list
-    })
+    if (window.confirm('Are you sure?')) {
+      const targetList = lists.find((list) => {
+        return selectedList.id === list.id
+      })
+      const targetDone = targetList.done.find((done) => {
+        return val.target.id === done.id
+      })
+      const newDone = targetList.done.filter((done) => {
+        return done !== targetDone
+      })
+      targetList.done = newDone
+      const newLists = lists.map((list) => {
+        return list.id === targetList.id ? targetList : list
+      })
 
-    setLists(newLists)
+      setLists(newLists)
+    }
   }
 
   const toDoNext = (val) => {
