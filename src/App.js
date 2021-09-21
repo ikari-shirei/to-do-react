@@ -154,26 +154,28 @@ function App() {
       <div>
         <Header list={selectedList.name} />
       </div>
-      <div className="main-content">
-        <Main
-          lists={lists}
-          setLists={setLists}
-          updateSelectedList={updateSelectedList}
-          selectedList={selectedList}
-          removeTask={removeTask}
-          toDoNext={toDoNext}
-          doingNext={doingNext}
-          doingBack={doingBack}
-          doneBack={doneBack}
-        />
-      </div>
-      <div className="container">
-        <Lists
-          updateSelectedList={updateSelectedList}
-          lists={lists}
-          setLists={setLists}
-          setSelectedList={setSelectedList}
-        />
+      <div className="bottom-body">
+        <div className="main-content">
+          <Main
+            lists={lists}
+            setLists={setLists}
+            updateSelectedList={updateSelectedList}
+            selectedList={selectedList}
+            removeTask={removeTask}
+            toDoNext={toDoNext}
+            doingNext={doingNext}
+            doingBack={doingBack}
+            doneBack={doneBack}
+          />
+        </div>
+        <div className="all-lists-container container">
+          <Lists
+            updateSelectedList={updateSelectedList}
+            lists={lists}
+            setLists={setLists}
+            setSelectedList={setSelectedList}
+          />
+        </div>
       </div>
     </div>
   )

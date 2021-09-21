@@ -1,0 +1,17 @@
+@import './index.scss';
+
+.todo-input {
+  height: 25px;
+  border: 1px solid $color1;
+  border-radius: 5px;
+}
+
+.todo-button {
+  background-color: rgb(73, 201, 84);
+  width: 50px;
+  border: 1px solid $color2;
+  border-radius: 5px;
+  color: $color2;
+  height: 31px !important;
+  cursor: pointer;
+}

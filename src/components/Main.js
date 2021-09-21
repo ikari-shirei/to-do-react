@@ -61,11 +61,14 @@ function Main({
         <div className="button-container">
           <h1>To Do</h1>
           <input
+            className="todo-input"
             onKeyPress={handleInputKeyPress}
             onChange={handleInput}
             value={newTaskName}
           />
-          <button onClick={addNewTask}>Add Task</button>
+          <button className="todo-button" onClick={addNewTask}>
+            Add
+          </button>
         </div>
         <div className="inside-container">
           {selectedList.todo.map((todo) => {

@@ -32,10 +32,61 @@ code {
     height: 120px;
     overflow-x: hidden;
     overflow-y: scroll;
+    scroll-behavior: auto;
   }
 }
 
 .button-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
+}
+
+@media only screen and (min-width: 500px) {
+  body {
+    margin: 32px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  body {
+    margin: 64px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+    margin: 0;
+  }
+  .header {
+    padding: 0 128px;
+  }
+  .main-content {
+    padding: 0 128px;
+  }
+  .all-lists-container {
+    padding: 0 128px;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .bottom-body {
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: 30% 70%;
+    padding: 0 128px;
+  }
+  .main-content {
+    grid-column: 2;
+    padding: 0;
+  }
+  .all-lists-container {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 0;
+  }
+  .inside-container {
+    height: 240px !important;
+  }
 }

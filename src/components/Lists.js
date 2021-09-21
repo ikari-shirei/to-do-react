@@ -52,11 +52,14 @@ function Lists({ updateSelectedList, lists, setLists, setSelectedList }) {
       <div className="button-container">
         <h1>Lists</h1>
         <input
+          className="todo-input"
           onChange={handleInput}
           onKeyPress={handleInputKeyPress}
           value={newListName}
         ></input>
-        <button onClick={addNewList}>Add List</button>
+        <button className="todo-button" onClick={addNewList}>
+          Add{' '}
+        </button>
       </div>
       <div className="lists-container">
         {lists.map((list) => {
