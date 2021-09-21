@@ -6,6 +6,12 @@ import React, { useState } from 'react'
 function Lists({ updateSelectedList, lists, setLists, setSelectedList }) {
   const [newListName, setNewListName] = useState('')
 
+  const saveToStorage = (lists) => {
+    const listJSON = JSON.stringify(lists)
+
+    localStorage.setItem('list', listJSON)
+  }
+
   const removeList = (selectedList) => {
     const targetId = selectedList.target.id
     if (lists.length === 1) {
@@ -17,6 +23,7 @@ function Lists({ updateSelectedList, lists, setLists, setSelectedList }) {
 
       setLists(updatedList)
       setSelectedList(updatedList[0])
+      saveToStorage(updatedList)
     }
   }
 
@@ -41,6 +48,7 @@ function Lists({ updateSelectedList, lists, setLists, setSelectedList }) {
       }
 
       setLists([...lists, newList])
+      saveToStorage([...lists, newList])
       setNewListName('')
     } else {
       alert('Enter a value')

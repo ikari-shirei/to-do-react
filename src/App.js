@@ -5,7 +5,7 @@ import Main from './components/Main'
 import Lists from './components/Lists'
 
 function App() {
-  const [lists, setLists] = useState([
+  const defaultList = [
     {
       id: uniqid(),
       name: 'First List',
@@ -22,28 +22,24 @@ function App() {
         { id: uniqid(), name: 'Second done' },
       ],
     },
-    /*  {
-      id: uniqid(),
-      name: 'Second List',
-      todo: [
-        { id: uniqid(), name: 'First todo' },
-        { id: uniqid(), name: 'Second todo' },
-        { id: uniqid(), name: 'Second todo' },
-        { id: uniqid(), name: 'Second todo' },
-        { id: uniqid(), name: 'Second todo' },
-      ],
-      doing: [
-        { id: uniqid(), name: 'First doing' },
-        { id: uniqid(), name: 'Second doing' },
-      ],
-      done: [
-        { id: uniqid(), name: 'First done' },
-        { id: uniqid(), name: 'Second done' },
-      ],
-    }, */
-  ])
+  ]
+
+  if (!localStorage.getItem('list')) {
+    const defaultListJSON = JSON.stringify(defaultList)
+    localStorage.setItem('list', defaultListJSON)
+  }
+
+  const storageList = JSON.parse(localStorage.getItem('list'))
+
+  const [lists, setLists] = useState(storageList || defaultList)
 
   const [selectedList, setSelectedList] = useState(lists[0])
+
+  const saveToStorage = (lists) => {
+    const listJSON = JSON.stringify(lists)
+
+    localStorage.setItem('list', listJSON)
+  }
 
   const updateSelectedList = (listId) => {
     const targetList = lists.find((list) => {
@@ -74,6 +70,7 @@ function App() {
       })
 
       setLists(newLists)
+      saveToStorage(newLists)
     }
   }
 
@@ -91,7 +88,9 @@ function App() {
     const newLists = lists.map((list) => {
       return list.id === targetList.id ? targetList : list
     })
+
     setLists(newLists)
+    saveToStorage(newLists)
   }
 
   const doingNext = (val) => {
@@ -110,7 +109,9 @@ function App() {
     const newLists = lists.map((list) => {
       return list.id === targetList.id ? targetList : list
     })
+
     setLists(newLists)
+    saveToStorage(newLists)
   }
 
   const doingBack = (val) => {
@@ -129,7 +130,9 @@ function App() {
     const newLists = lists.map((list) => {
       return list.id === targetList.id ? targetList : list
     })
+
     setLists(newLists)
+    saveToStorage(newLists)
   }
 
   const doneBack = (val) => {
@@ -146,7 +149,9 @@ function App() {
     const newLists = lists.map((list) => {
       return list.id === targetList.id ? targetList : list
     })
+
     setLists(newLists)
+    saveToStorage(newLists)
   }
 
   return (

@@ -20,6 +20,11 @@ function Main({
     setNewTaskName(val.target.value)
   }
 
+  const saveToStorage = (lists) => {
+    const listJSON = JSON.stringify(lists)
+    localStorage.setItem('list', listJSON)
+  }
+
   const addNewTask = () => {
     if (newTaskName !== '') {
       const newTask = { id: uniqid(), name: newTaskName }
@@ -34,8 +39,9 @@ function Main({
       const updatedLists = lists.map((list) => {
         return list === selectedList ? targetList : list
       })
-      console.log(updatedLists)
+
       setLists(updatedLists)
+      saveToStorage(updatedLists)
 
       updateSelectedList(
         updatedLists.find((list) => {
